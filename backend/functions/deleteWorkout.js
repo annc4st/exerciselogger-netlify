@@ -1,9 +1,9 @@
 const express = require('express');
 const serverlessHttp = require('serverless-http');
 const cors = require('cors');
-const { getAllWorkouts } = require ('../controllers/workoutController')
 const connectDB = require('../utils/db')
 const router = express.Router();
+const { deleteWorkout } = require ('../controllers/workoutController')
 
 
 const app = express()
@@ -17,10 +17,9 @@ connectDB();
 
 // Routes
 //for netlify serverless
-app.get('/.netlify/functions/getWorkouts', getAllWorkouts);
-
+app.delete('/.netlify/functions/deleteWorkout', deleteWorkout);
 //for local server
-router.get('/', getAllWorkouts);
+router.delete('/:id', deleteWorkout);
 
 module.exports = router;
 

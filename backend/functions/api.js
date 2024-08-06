@@ -1,18 +1,25 @@
 const express = require('express')
 const serverlessHttp = require('serverless-http')
+const cors = require('cors');
+const router = express.Router();
 
 
 const app = express();
 
-app.get('/.netlify/functions/api', (req, res) => {
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// app.get('/.netlify/functions/api', (req, res) => {
+//     return res.json({message: "Hello!"})
+// })
+
+app.get('/', (req, res) => {
     return res.json({message: "Hello!"})
 })
 
+module.exports = router;
 
-const handler = serverlessHttp(app)
 
 
-module.exports.handler = async (event, context) => {
-    const result = await handler (event, context);
-    return result
-}
+// module.exports.handler = serverlessHttp(app);
