@@ -1,5 +1,6 @@
 const express = require('express');
 const serverlessHttp = require('serverless-http');
+const mongoose = require('mongoose');
 
 const { getAllWorkouts } = require ('../controllers/workoutController')
 const connectDB = require('../utils/db')
