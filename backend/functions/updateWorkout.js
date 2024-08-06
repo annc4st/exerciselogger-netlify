@@ -17,7 +17,7 @@ connectDB();
 
 // Routes
 //for netlify serverless
-app.patch('/.netlify/functions/updateWorkout', updateWorkout);
+app.patch('/.netlify/functions/updateWorkout/:id', updateWorkout);
 //for local server
 router.patch('/:id', updateWorkout);
 

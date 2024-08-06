@@ -17,7 +17,7 @@ connectDB();
 
 // Routes
 //for netlify serverless
-app.delete('/.netlify/functions/deleteWorkout', deleteWorkout);
+app.delete('/.netlify/functions/deleteWorkout/:id', deleteWorkout);
 //for local server
 router.delete('/:id', deleteWorkout);
 
