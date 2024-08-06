@@ -7,9 +7,11 @@ const connectDB = require('../utils/db')
 
 const app = express()
 
+app.use(express.json());
+
 connectDB();
 
-app.get('/.netlify/functions/getWorkouts', getAllWorkouts);
+app.get('/.netlify/functions/workouts', getAllWorkouts);
 
 const handler = serverlessHttp(app)
 
