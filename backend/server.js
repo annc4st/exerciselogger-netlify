@@ -1,5 +1,4 @@
 
-
 require('dotenv').config();
 console.log('MONGO_URI:', process.env.MONGO_URI);
 console.log('SECRET:', process.env.SECRET);
@@ -9,13 +8,11 @@ const express = require('express');
 
 const mongoose = require('mongoose');
 const cors = require('cors');
+const connectDB = require('./utils/db');
 
-const workoutRoutes = require('./functions/getWorkouts');
-const apiRoutes = require('./functions/api')
-const singleWorkoutRoutes = require('./functions/getWorkout');
-const createWorkout = require('./functions/createWorkout')
-const deleteWorkout = require('./functions/deleteWorkout')
-const updateWorkout = require('./functions/updateWorkout')
+const workoutRoutes = require('./routes/getWorkouts');
+const apiRoute = require('./routes/apiRoute')
+const userRoutes = require('../routes/userRoute')
 
 // Initialize Express app
 const app = express();
@@ -25,12 +22,12 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-const connectDB = require('./utils/db');
 connectDB();
 
 // Routes
-app.use('/api', apiRoutes);
-app.use('/api/workouts', workoutRoutes, singleWorkoutRoutes, createWorkout, deleteWorkout, updateWorkout );
+app.use('/api', apiRoute);
+app.use('/api/workouts', workoutRoutes);
+app.use('/api/auth', userRoutes)
  
 
 // Start the server

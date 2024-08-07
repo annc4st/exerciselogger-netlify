@@ -3,26 +3,23 @@ const serverlessHttp = require('serverless-http');
 const cors = require('cors');
 const { getAllWorkouts } = require ('../controllers/workoutController')
 const connectDB = require('../utils/db')
-const router = express.Router();
 
 
 const app = express()
+const router = express.Router();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
 connectDB();
 
 // Routes
 //for netlify serverless
-app.get('/.netlify/functions/getWorkouts', getAllWorkouts);
+// app.get('/.netlify/functions/getWorkouts', getAllWorkouts);
 
-//for local server
-router.get('/', getAllWorkouts);
-
-module.exports = router;
+router.get('/', getAllWorkouts)
+app.use('/.netlify/functions/getWorkouts', router)
 
 
 // Export the handler for Netlify

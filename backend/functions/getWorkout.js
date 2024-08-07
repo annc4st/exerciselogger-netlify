@@ -15,12 +15,11 @@ app.use(express.json());
 connectDB();
 
 //Routes
-app.get('/.netlify/functions/getWorkout/:id', getWorkout);
+// app.get('/.netlify/functions/getWorkout/:id', getWorkout);
 
-// Route to get a single workout by ID
 router.get('/:id', getWorkout);
+app.use('/.netlify/functions/getWorkout', router);
 
 
-module.exports = router;
 
 module.exports.handler = serverlessHttp(app);
