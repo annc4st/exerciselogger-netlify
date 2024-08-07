@@ -10,9 +10,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const connectDB = require('./utils/db');
 
-const workoutRoutes = require('./routes/getWorkouts');
+const workoutRoutes = require('./routes/workoutRoutes');
 const apiRoute = require('./routes/apiRoute')
-const userRoutes = require('../routes/userRoute')
+const userRouter = require('./routes/userRouter')
 
 // Initialize Express app
 const app = express();
@@ -27,7 +27,7 @@ connectDB();
 // Routes
 app.use('/api', apiRoute);
 app.use('/api/workouts', workoutRoutes);
-app.use('/api/auth', userRoutes)
+app.use('/api/auth', userRouter)
  
 
 // Start the server

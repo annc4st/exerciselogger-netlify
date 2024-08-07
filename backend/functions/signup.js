@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const serverlessHttp = require('serverless-http');
 const cors = require('cors');
@@ -14,7 +15,7 @@ app.use(express.json());
 
 connectDB();
 
-router.post('/signup', signupUser)
+router.post('/', signupUser)
 app.use('/.netlify/functions/signup', router)
 
 module.exports.handler = serverlessHttp(app);

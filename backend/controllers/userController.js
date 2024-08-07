@@ -1,3 +1,4 @@
+require('dotenv').config();
 const UserModel = require('../models/userModel')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
@@ -21,6 +22,7 @@ const loginUser = async (req, res) => {
 
 //signup
 const signupUser = async (req, res) => {
+    console.log('Signup request received', req.body);
     const {email, password} = req.body;
     try {
         const signedupUser = await UserModel.signup(email, password)
