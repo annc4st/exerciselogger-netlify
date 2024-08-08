@@ -46,8 +46,8 @@ userSchema.statics.login = async function (email, password){
         throw Error ("Email and password fields must be filled")
     }
 
-    const userExists = await this.findOne({email})
-    if (!userExists) {
+    const user = await this.findOne({email})
+    if (!user) {
         throw Error ("Incorrect email")
     }
 
@@ -56,7 +56,7 @@ userSchema.statics.login = async function (email, password){
     if (!matchPassword){
         throw Error("Incorrect password")
     }
-    return userExists
+    return user
 }
 
 module.exports = mongoose.model('User', userSchema)
