@@ -12,8 +12,8 @@ const createToken = (_id) => {
 const loginUser = async (req, res) => {
     const {email, password} = req.body;
     try {
-        const loggedUser = await UserModel.login(email, password)
-        const token = createToken(loggedUser._id)
+        const user = await UserModel.login(email, password)
+        const token = createToken(user._id)
         res.status(200).json({email, token})
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -25,8 +25,8 @@ const signupUser = async (req, res) => {
     console.log('Signup request received', req.body);
     const {email, password} = req.body;
     try {
-        const signedupUser = await UserModel.signup(email, password)
-        const token = createToken(signedupUser._id)
+        const user = await UserModel.signup(email, password)
+        const token = createToken(user._id)
         res.status(200).json({email, token})
     } catch(error){
         res.status(400).json({error: error.message})
