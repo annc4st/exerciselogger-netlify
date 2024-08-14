@@ -9,7 +9,10 @@ const app = express()
 const router = express.Router();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+        origin: 'http://localhost:3000'
+      }
+));
 app.use(express.json());
 
 connectDB();
@@ -21,7 +24,15 @@ connectDB();
 router.delete('/:id', deleteWorkout);
 app.use('/.netlify/functions/deleteWorkout', router)
 
+// Handle CORS preflight requests
+app.options('*', cors());
 
+app.use((req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+  next();
+});
 
 
 // Export the handler for Netlify

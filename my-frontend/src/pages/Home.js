@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
+
+import { useWorkoutContext } from '../hooks/useWorkoutContext'
+import {useAuthContext} from '../hooks/useAuthContext'
+
 import WorkoutDetails from '../components/WorkoutDetails'
+import WorkoutForm from '../components/WorkoutForm'
 
 
 
 const Home = () => {
-    const [workouts, setWorkouts] = useState([]);
+ const { workouts, dispatch } = useWorkoutContext()
+    const { user } = useAuthContext()
 
 
     useEffect(() => {
@@ -15,17 +21,20 @@ const Home = () => {
 
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/getWorkouts`);
 
-            // console.log(response)
-            // const data = await response.json(); for fetch
-            const data = response.data
-            console.log(data);
-            setWorkouts(data) // Handle the data as needed
+           // Check if the response status is OK (200)
+        if (response.status === 200) {
+            const data = response.data;
+            // console.log(data); // Debugging: check what data is returned
+  
+            // Dispatch the data to update the workouts context
+            dispatch({ type: 'SET_WORKOUTS', payload: data });
+            }
             } catch (error) {
                 console.log(error)
             }
         }
         fetchWorkouts();
-    }, [])
+    }, [dispatch])
 
     return (
         <div className='home'>
@@ -34,6 +43,7 @@ const Home = () => {
                 <WorkoutDetails key={workout._id} workout={workout} />
             ))}
         </div>
+        <WorkoutForm />
         </div>
     );
 
