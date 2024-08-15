@@ -10,7 +10,7 @@ const router = express.Router();
 
 // Middleware
 app.use(cors({
-        origin: 'http://localhost:3000'
+        origin: 'https://gymswimworkouts.netlify.app'
       }
 ));
 app.use(express.json());

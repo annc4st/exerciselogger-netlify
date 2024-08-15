@@ -9,7 +9,10 @@ const app = express()
 const router = express.Router();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: 'https://gymswimworkouts.netlify.app'
+  }
+));
 app.use(express.json());
 
 connectDB();
