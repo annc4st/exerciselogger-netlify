@@ -14,14 +14,13 @@ const WorkoutDetails = ({ workout }) => {
       const jsonResponse = response.data; //the doc we just deleted from db
       console.log(jsonResponse);
 
-      if (response.ok) {
+      if (response.status === 200) {
         dispatch({type: 'DELETE_WORKOUT', payload: jsonResponse})
       }
 
     } catch (error){
       console.log("Error deleting ", error)
     }
-
   }
 
     return (

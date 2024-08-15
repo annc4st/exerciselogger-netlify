@@ -34,48 +34,40 @@ const WorkoutForm = () => {
     //     const jsonResponse = await response.json()    
     //   console.log(jsonResponse);
 
-    //     if (!response.ok) {
-    //       setError(jsonResponse.error)
-    //     }
-
-    //     if (response.ok) {
-    //       setError(null)
-    //       setTitle('')
-    //       setLoad('')
-    //       setReps('')
-    //       dispatch({type: 'CREATE_WORKOUT', payload: jsonResponse})
-    //     }
-
-
-
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/createWorkout/`,
         workout,
-        {
-          headers: {
+        { headers: {
             "Content-type": "application/json",
             Authorization: `Bearer ${user.token}`,
-          },
+          }
         }
       );
+   
     
       const jsonResponse = response.data;
-    
-      console.log(jsonResponse);
+      console.log("Response data: ", jsonResponse);
     
       if (response.status !== 200) {
         setError(jsonResponse.error);
+        setEmptyFields(jsonResponse.emptyFields || []);
+        console.log("empty fields after error: ", emptyFields); 
+        
       } else {
+        setEmptyFields([])
         setError(null);
         setTitle('');
         setLoad('');
         setReps('');
+      
         dispatch({ type: 'CREATE_WORKOUT', payload: jsonResponse });
       }
     } catch (error) {
-      // Handle errors
-      setError(error.response ? error.response.data.error : 'Something went wrong');
+      console.error("Error during submission:", error);
+      console.log("Server response:", error.response?.data); // Log the server's response message
+      setError(error.response?.data.error || "An error occurred");
+      setEmptyFields(error.response?.data.emptyFields || []);
     }
     
   };
@@ -90,21 +82,21 @@ const WorkoutForm = () => {
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        className={emptyFields.includes("title") ? "error" : ""}
-      />
+        className={emptyFields.includes('title') ? 'errorInput' : 'inputOk'}
+        />
       <label>Load (in kg)</label>
       <input
         type="number"
         onChange={(e) => setLoad(e.target.value)}
         value={load}
-        className={emptyFields.includes("load") ? "error" : ""}
+        className={emptyFields.includes('load') ? 'errorInput' : 'inputOk'}
       />
       <label>Reps</label>
       <input
         type="number"
         onChange={(e) => setReps(e.target.value)}
         value={reps}
-        className={emptyFields.includes("reps") ? "error" : ""}
+        className={emptyFields.includes('reps') ? 'errorInput' : 'inputOk'}
       />
       <button>Add Workout</button>
       {error && <div className="error">{error}</div>}

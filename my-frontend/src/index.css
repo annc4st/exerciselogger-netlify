@@ -4,7 +4,7 @@
 /* layout */
 :root {
   --primary: #1aac83;
-  --error: #e7195a;
+  --error: red;
 }
 body {
   background: #f1f1f1;
@@ -97,10 +97,14 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
-input.error {
-  border: 1px solid var(--error);
+.errorInput {
+  border: 2px solid var(--error) !important;
+}
+.inputOk {
+  border: 1px solid #ddd;
 }
 
+input
 /* navbar */
 nav {
   display: flex;

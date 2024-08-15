@@ -13,6 +13,8 @@ export const workoutsReducer = (state, action) => {
               workouts : [action.payload, ...state.workouts]
           }
         case 'DELETE_WORKOUT':
+          console.log('Deleting workout:', action.payload._id);
+          console.log('Current state:', state.workouts); 
           return {
             workouts : state.workouts.filter((w) =>  w._id !== action.payload._id )
           }
@@ -23,7 +25,7 @@ export const workoutsReducer = (state, action) => {
     
     export const WorkoutContextProvider = ({ children }) => {
       const [ state, dispatch] = useReducer(workoutsReducer, {
-        workouts: null
+        workouts: []
       })
 
       
