@@ -23,17 +23,6 @@ const WorkoutForm = () => {
       return;
     }
 
-    //  const response = await fetch(`${process.env.REACT_APP_API_URL}/createWorkout/`, {
-    //     method: 'POST',
-    //     body: JSON.stringify(workout),
-    //     headers: {
-    //         'Content-type': 'application/json',
-    //                 'Authorization': `Bearer ${user.token}`
-    //     }
-    //   })
-    //     const jsonResponse = await response.json()    
-    //   console.log(jsonResponse);
-
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/createWorkout/`,
@@ -47,12 +36,10 @@ const WorkoutForm = () => {
    
     
       const jsonResponse = response.data;
-      console.log("Response data: ", jsonResponse);
-    
+     
       if (response.status !== 200) {
         setError(jsonResponse.error);
         setEmptyFields(jsonResponse.emptyFields || []);
-        console.log("empty fields after error: ", emptyFields); 
         
       } else {
         setEmptyFields([])
@@ -69,7 +56,6 @@ const WorkoutForm = () => {
       setError(error.response?.data.error || "An error occurred");
       setEmptyFields(error.response?.data.emptyFields || []);
     }
-    
   };
 
   
