@@ -22,8 +22,7 @@ const Home = () => {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
-          }
-        );
+          });
 
        
         if (response.status === 200) {
@@ -45,10 +44,13 @@ const Home = () => {
   return (
     <div className="home">
       <div className="workouts">
-        {workouts &&
-          workouts.map((workout) => (
+      {!workouts || workouts.length === 0 ? (
+        <p>No workouts here yet. Start adding some!</p>
+      ) : (
+        workouts.map((workout) => (
             <WorkoutDetails key={workout._id} workout={workout} />
-          ))}
+          ))
+          )}
       </div>
       <WorkoutForm />
     </div>

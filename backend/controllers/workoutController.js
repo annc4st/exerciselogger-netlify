@@ -7,7 +7,7 @@ const getAllWorkouts = async (req, res) => {
   
   try {
     const user_id = req.user._id
-    const workouts = await WorkoutModel.find({user_id}).sort({created: -1})
+    const workouts = await WorkoutModel.find({ user_id }).sort({created: -1})
     res.status(200).json(workouts)
   } catch (error) {
     res.status(400).json({ error: error.message });
