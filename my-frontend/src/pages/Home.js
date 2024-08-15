@@ -17,7 +17,7 @@ const Home = () => {
         // const response = await fetch('https://moonlit-cucurucho-e6867c.netlify.app/.netlify/functions/getWorkouts')
 
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/getWorkouts`,
+          `${process.env.REACT_APP_API_URL}/getWorkouts/`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
