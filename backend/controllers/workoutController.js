@@ -51,7 +51,8 @@ const getWorkout = async (req, res) => {
 
     try {
       //add auth middleware when created
-      const newWorkout = await WorkoutModel.create({title, load, reps})
+      const user_id = req.user._id
+      const newWorkout = await WorkoutModel.create({title, load, reps, user_id})
       res.status(200).json(newWorkout)
     } catch (error) {
       res.status(400).json({error: error.message})
