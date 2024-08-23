@@ -9,10 +9,8 @@ const getAllWorkouts = async (req, res) => {
   }
   
   try {
-    console.log("requserID ", req.user)
     const user_id = req.user._id
-    // console.log("user ID: ", user_id)
-    const workouts = await WorkoutModel.find({user_id}).sort({created: -1})
+       const workouts = await WorkoutModel.find({user_id}).sort({created: -1})
     res.status(200).json(workouts)
   } catch (error) {
     console.log(error)
