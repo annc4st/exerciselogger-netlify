@@ -3,6 +3,7 @@ const serverlessHttp = require('serverless-http');
 const { getWorkout } = require('../controllers/workoutController');
 const connectDB = require('../utils/db');
 const cors = require('cors');
+const requireAuth = require('../middleware/requireAuth')
 
 
 const app = express();
@@ -23,7 +24,7 @@ connectDB();
 //Routes
 // app.get('/.netlify/functions/getWorkout/:id', getWorkout);
 
-router.get('/:id', getWorkout);
+router.get('/:id', requireAuth, getWorkout);
 app.use('/.netlify/functions/getWorkout', router);
 
 

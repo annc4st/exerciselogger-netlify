@@ -4,14 +4,19 @@ const mongoose = require('mongoose')
 
 //all workouts
 const getAllWorkouts = async (req, res) => {
+    if (!req.user || !req.user._id) {
+    return res.status(401).json({ error: "User not authenticated" });
+  }
   
   try {
+    console.log("requserID ", req.user)
     const user_id = req.user._id
-    console.log("user ID: ", user_id)
-    const workouts = await WorkoutModel.find({ user_id }).sort({created: -1})
+    // console.log("user ID: ", user_id)
+    const workouts = await WorkoutModel.find({user_id}).sort({created: -1})
     res.status(200).json(workouts)
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(error)
+    res.status(400).json({ error: error.message});
   }
 }
 

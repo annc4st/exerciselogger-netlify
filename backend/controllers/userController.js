@@ -14,6 +14,7 @@ const loginUser = async (req, res) => {
     try {
         const user = await UserModel.login(email, password)
         const token = createToken(user._id)
+        
         res.status(200).json({email, token})
     } catch (error) {
         console.log('Login error:', error.message); // Log the error message for debugging

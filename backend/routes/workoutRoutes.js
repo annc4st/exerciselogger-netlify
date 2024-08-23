@@ -11,7 +11,6 @@ const router = express.Router();
 router.use(requireAuth);
 
 //Routes
-
 router.get('/', getAllWorkouts); 
 router.get('/:id', getWorkout); 
 router.post('/', addWorkout); 

@@ -3,7 +3,7 @@ const serverlessHttp = require('serverless-http');
 const cors = require('cors');
 const connectDB = require('../utils/db')
 const { deleteWorkout } = require ('../controllers/workoutController')
-
+const requireAuth = require('../middleware/requireAuth')
 
 const app = express()
 const router = express.Router();
@@ -24,7 +24,7 @@ connectDB();
 //for netlify serverless
 // app.delete('/.netlify/functions/deleteWorkout', deleteWorkout);
 
-router.delete('/:id', deleteWorkout);
+router.delete('/:id', requireAuth, deleteWorkout);
 app.use('/.netlify/functions/deleteWorkout', router)
 
 // Handle CORS preflight requests
