@@ -3,6 +3,7 @@ import {createContext, useReducer } from 'react'
 export const WorkoutContext = createContext()
 
 export const workoutsReducer = (state, action) => {
+  console.log('Action received:', action); // Debug: Log every action
     switch(action.type) {
         case 'SET_WORKOUTS':
           return {
